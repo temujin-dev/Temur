@@ -1,0 +1,46 @@
+package info.conspire.temur.network;
+
+import info.conspire.temur.network.codec.GameDecoder;
+import info.conspire.temur.network.codec.PolicyDecoder;
+import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
+
+/**
+ * Project Temur
+ * @author Temujin
+ */
+public class NetworkBootstrap {
+    public static void boot() {
+        EventLoopGroup bossGroup = new NioEventLoopGroup();
+        EventLoopGroup workerGroup = new NioEventLoopGroup();
+        try {
+            ServerBootstrap b = new ServerBootstrap();
+            b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
+                    .option(ChannelOption.SO_BACKLOG, 1000)
+                    .localAddress("127.0.0.1",38101)
+                    .childOption(ChannelOption.TCP_NODELAY, true)
+                    .childHandler(new ChannelInitializer<SocketChannel>() {
+                        @Override
+                        protected void initChannel(SocketChannel ch) throws Exception {
+                            ch.pipeline()
+                                    .addLast(new PolicyDecoder())
+                                    .addLast(new GameDecoder()).
+                                    addLast(new TemurChannelHandler());
+
+
+                        }
+                    });
+
+            ChannelFuture f = b.bind().sync();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}

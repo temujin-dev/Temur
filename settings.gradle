@@ -1,0 +1,5 @@
+rootProject.name = 'Temur'
+include 'network'
+
+include 'game'
+
