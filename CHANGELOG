@@ -1,0 +1,8 @@
+8a7f4fe (HEAD, origin/master, master) Add Hibernate files & preliminary database design documentation
+34fc6cb Update README
+3501743 Fix gradle-wrapper.jar issue
+c329a18 Fix .travis.yml
+1dad5e2 Add .travis.yml file & properties.file, fix client issues
+5c2908a Fix untracked files
+52c4ac6 Add README & .gitignore
+4d3c1a1 Testing

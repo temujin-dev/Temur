@@ -1,4 +1,4 @@
-table user:
+table users:
     id int nn pk uniq
     email varchar(64) nn uniq
     password varchar(255) nn
@@ -6,7 +6,7 @@ table user:
     activation_key varchar(255) nn uniq
 
 table habbos:
-    id int nn ck uniq
-    user_id int nn ck uniq fk (habbos.user_id -> user.id)
+    id int nn pk uniq
+    user_id int nn  uniq fk (habbos.user_id -> user.id)
     name varchar(32) nn uniq
     gender enum('M','F')
