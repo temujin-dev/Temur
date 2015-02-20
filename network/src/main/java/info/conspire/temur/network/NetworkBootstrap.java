@@ -1,7 +1,7 @@
 package info.conspire.temur.network;
 
 import info.conspire.temur.network.codec.GameDecoder;
-import info.conspire.temur.network.codec.PolicyDecoder;
+
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -33,7 +33,7 @@ public class NetworkBootstrap {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
                             ch.pipeline()
-                                    .addLast(new PolicyDecoder())
+
                                     .addLast(new GameDecoder()).
                                     addLast(new TemurChannelHandler());
 

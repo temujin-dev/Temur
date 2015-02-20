@@ -17,17 +17,8 @@ public class PolicyDecoder extends ByteToMessageDecoder {
     private static final Logger logger = LogManager.getLogger(PolicyDecoder.class);
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-        in.resetReaderIndex();
-        // Policy byte
-        if(in.readByte() == 0x3C) {
-            in.discardReadBytes();
-            logger.info("Policy request");
-            ctx.write(FlashPolicy.XML_POLICY);
 
-        } else {
-            ctx.pipeline().remove(this);
-            in.resetReaderIndex();
-           // out.add(in.readBytes(in.readableBytes()));
-        }
+        // Policy byte
+
     }
 }

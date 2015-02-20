@@ -24,7 +24,7 @@ public class Temur {
     public static void main(String[] args) {
         logger.info("Booting up Temur");
         config = new Configuration("src/main/resources/temur.cfg");
-        bootHibernate();
+        //bootHibernate();
         NetworkBootstrap.boot(config.getString("network.host"), config.getInt("network.port"));
 
     }
