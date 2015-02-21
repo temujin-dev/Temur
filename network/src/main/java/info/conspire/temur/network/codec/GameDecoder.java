@@ -28,7 +28,9 @@ public class GameDecoder extends MessageToMessageDecoder<Object> {
         
         if(delim == 60) {
             logger.info("Policy");
+            // TODO: Replace with session handler logic
             ctx.channel().writeAndFlush(Unpooled.copiedBuffer(FlashPolicy.XML_POLICY.getBytes()));
+            buf.discardReadBytes();
             
         } else {
             int msgLen = Base64Encoding.PopInt(new byte[]{delim, buf.readByte(), buf.readByte()});

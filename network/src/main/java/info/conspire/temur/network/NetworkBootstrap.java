@@ -1,5 +1,6 @@
 package info.conspire.temur.network;
 
+import info.conspire.temur.game.sessions.ISessionMap;
 import info.conspire.temur.network.codec.GameDecoder;
 
 import io.netty.bootstrap.ServerBootstrap;
@@ -11,8 +12,6 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
-import java.net.InetAddress;
-
 /**
  * Project Temur
  * @author Temujin
@@ -20,7 +19,7 @@ import java.net.InetAddress;
 public class NetworkBootstrap {
 
 
-    public static void boot(String host, int port) {
+    public static void boot(String host, int port, ISessionMap map) {
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
@@ -33,9 +32,10 @@ public class NetworkBootstrap {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
                             ch.pipeline()
-
+                                    
                                     .addLast(new GameDecoder()).
-                                    addLast(new TemurChannelHandler());
+                                    addLast(new TemurChannelHandler(map))
+                                    ;
 
 
                         }

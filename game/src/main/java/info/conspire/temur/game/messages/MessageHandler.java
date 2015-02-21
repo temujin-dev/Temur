@@ -1,5 +1,6 @@
 package info.conspire.temur.game.messages;
 
+import info.conspire.temur.game.messages.incoming.handshake.InitCryptoMessageEvent;
 import info.conspire.temur.game.sessions.TemurSession;
 import info.conspire.temur.network.protocol.ClientMessage;
 import org.apache.logging.log4j.LogManager;
@@ -18,8 +19,7 @@ public class MessageHandler {
     private static final Logger logger = LogManager.getLogger(MessageHandler.class);
     
     static {
-
-        
+        incomingMessages.put(206, new InitCryptoMessageEvent());
     }
     
     // TODO: Change to boolean

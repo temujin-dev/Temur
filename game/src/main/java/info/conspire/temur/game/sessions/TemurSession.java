@@ -1,5 +1,7 @@
 package info.conspire.temur.game.sessions;
 
+import info.conspire.temur.game.messages.MessageHandler;
+import info.conspire.temur.network.protocol.ClientMessage;
 import io.netty.channel.Channel;
 
 /**
@@ -31,6 +33,10 @@ public class TemurSession {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public void handleMessage(ClientMessage clientMessage) {
+        MessageHandler.handle(this, clientMessage);
     }
     //private Habbo habbo; 
 }

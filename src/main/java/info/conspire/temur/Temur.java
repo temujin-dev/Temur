@@ -2,6 +2,10 @@ package info.conspire.temur;
 
 
 
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+import info.conspire.temur.game.sessions.ISessionMap;
 import info.conspire.temur.network.NetworkBootstrap;
 import info.conspire.temur.util.Configuration;
 import org.apache.logging.log4j.LogManager;
@@ -24,8 +28,10 @@ public class Temur {
     public static void main(String[] args) {
         logger.info("Booting up Temur");
         config = new Configuration("src/main/resources/temur.cfg");
+        Injector injector = bootGuice();
+        ISessionMap sessionMap = injector.getInstance(ISessionMap.class);
         //bootHibernate();
-        NetworkBootstrap.boot(config.getString("network.host"), config.getInt("network.port"));
+        NetworkBootstrap.boot(config.getString("network.host"), config.getInt("network.port"), sessionMap);
 
     }
 
@@ -40,6 +46,12 @@ public class Temur {
         catch (HibernateException ex) {
             throw new ExceptionInInitializerError(ex);
         }
+    }
+    
+    private static Injector bootGuice() {
+        Injector injector = Guice.createInjector(new TemurModule());
+
+        return injector;
     }
 
 
